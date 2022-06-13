@@ -1,0 +1,123 @@
+doctype: #a8a8a8 !default;
+comment: #2b9720 !default;
+tag: #800048 !default;
+text: #333 !default;
+attribute-key: #ba7a2f !default;
+attribute-value: #1a497c !default;
+other: #a8a8a8 !default;
+lineover: #b9d9ec !default;
+block-default: lighten($doctype, 30%) !default;
+block-hover: lighten($doctype, 20%) !default;
+
+mixin lineover {
+    position: absolute;
+    top: 0;            
+    height: 100%;
+    left: -2000rem;
+    width: 9999rem;  
+    background: $lineover;
+    outline: 0.0625rem solid white;
+}
+
+.code {
+    font: .8125rem/1.43 consolas, monaco, monospace;
+    font-weight: normal;
+    overflow: hidden;
+    
+    li {
+        display: block;
+        margin: 0 0.625rem;
+        list-style: none;
+    } 
+    
+    li, &-line {
+        padding: 0.0625rem 0px;
+    }
+    
+    ul {
+        margin-left: 0.625rem;
+    }
+    
+    &-block {       
+        position: relative;
+        
+        & > .code-line {
+            display: block;
+        }
+        
+        &:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 10px;
+            height: 100%;
+            border: 2rem solid white;
+            border-left: 0;
+            border-right: 0;
+            width: 0.0625rem;            
+            z-index: -1;
+            background: $block-default;  
+        }
+        
+        &-hover {
+            &:before {
+                background: $block-hover;
+            }
+        }
+    }
+    
+    &-item {
+        position: relative;
+    }
+    
+    &-line {
+        position: relative;
+        display: inline-block;
+        
+        & > &-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        &:after {
+            content: "";
+            @include lineover;
+            opacity: 0;            
+        }
+        
+        &:hover {
+            &:after {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+.xml {    
+    color: $other;
+    
+    &-text, &-tag-value {
+        color: $text; 
+    }
+    
+    &-doctype {
+        color: $doctype;
+    }
+    
+    &-comment {
+        color: $comment;
+    }
+    
+    &-tag-name {
+        color: $tag;
+    }
+    
+    &-attribute-key {
+        color: $attribute-key;
+    }
+    
+    &-attribute-value {
+        color: $attribute-value;
+    } 
+}
